@@ -1,0 +1,45 @@
+class Solution {
+   
+    public int[] exclusiveTime(int n, List<String> logs) {
+         class logPair{
+        int id;
+        int timestamp;
+        int sleeptime;   // The time for which current process was on hold
+        boolean isStart = false;
+        public logPair(String s){
+            String[] ar = s.split(":");
+            this.id = Integer.parseInt(ar[0]);
+            this.timestamp = Integer.parseInt(ar[2]);
+            this.isStart = ar[1].equals("start");
+            this.sleeptime = 0;
+            
+        }
+    }
+        
+        Stack<logPair> st = new Stack<>();
+        int[] ans  = new int[n];
+        
+        for(String s : logs){
+            logPair log = new logPair(s);
+            
+            if(log.isStart) st.push(log);
+            
+            else{
+                
+                  logPair rp = st.pop();
+                  ans[rp.id] += (log.timestamp  - rp.timestamp) + 1  - rp.sleeptime;
+                  
+                if(st.size() != 0){
+                    st.peek().sleeptime += log.timestamp - rp.timestamp + 1;
+                }
+                
+            }
+        }
+        
+        return ans;
+        
+        
+        
+        
+    }
+}
