@@ -1,0 +1,15 @@
+class Solution {
+    public int longestSubsequence(int[] arr, int difference) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int maxlen = 0;
+        
+        for(int ele : arr){
+            map.put(ele,map.getOrDefault(ele - difference,0) + 1 );
+            maxlen = Math.max(maxlen,map.get(ele));
+        }
+        
+        return maxlen;
+    }
+}
+
+// HashMap Stores the ele vs max len of sequence ending at ele
