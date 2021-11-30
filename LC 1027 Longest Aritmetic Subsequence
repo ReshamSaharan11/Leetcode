@@ -1,0 +1,29 @@
+class Solution {
+    public int longestArithSeqLength(int[] nums) {
+        int n = nums.length;
+        
+        HashMap<Integer,Integer> dp[]  = new HashMap[n];    // Stores diff vs len of ArithmeticSubsequence ending at ele
+        
+        for(int i=0;i<n;i++) dp[i] = new HashMap<>();
+        
+        int len = 0;
+        
+        for(int i=0;i<n;i++){
+            
+            for(int j=i-1;j>=0;j--){
+              int diff = nums[i] - nums[j];
+              int currLen = dp[i].getOrDefault(diff,0);
+              int newLen = dp[j].getOrDefault(diff,1) + 1;
+                
+                dp[i].put(diff,Math.max(currLen,newLen));
+                len = Math.max(len,dp[i].get(diff));
+            }
+        }
+        
+        return len;
+        
+    }
+}
+
+Time O(N^2)
+Space O(N^2)
