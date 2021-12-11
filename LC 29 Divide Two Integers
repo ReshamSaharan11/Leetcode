@@ -1,0 +1,35 @@
+class Solution {
+    public int divide(int dividend, int divisor) {
+        if (dividend == 1 << 31 && divisor == -1) return (1 << 31) - 1;
+        
+        int ans = 0;
+        boolean neg = false;
+        if(dividend < 0 && divisor < 0){
+            neg = false;
+        }else if(dividend < 0 || divisor < 0){
+            neg = true;
+        }
+             
+       long  absdividend  = Math.abs((long) dividend);
+       long  absdivisor  =  Math.abs((long) divisor);
+        
+         for(int i=31;i>=0;i--){
+             if((absdivisor << i) <= absdividend){
+             absdividend = absdividend - (absdivisor << i);
+             ans += (1 << i);
+             }
+         }
+        
+        if(neg == false){
+            return  ans;
+        }
+         
+        return  -1 * ans;
+    }
+}
+
+// The time complexity of this algorithm is going to be O((log a)^2), where a is the dividend.
+
+This is because each left shift operation takes O(log a) time. In short, the division is based on a multiplication operation and the time complexity of the base multiplication algorithm is the time complexity of division operation.
+
+The space complexity of this algorithm is O(1).
