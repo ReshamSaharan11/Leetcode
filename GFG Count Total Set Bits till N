@@ -1,0 +1,27 @@
+class Solution{
+    
+    //Function to return sum of count of set bits in the integers from 1 to n.
+    public static int countSetBits(int n){
+      if(n == 0) return 0;
+       int x  = largestPowerOf2inRange(n);
+        
+        int NoOfSetBitsUpto2raisex = x * ((1<< x - 1));
+        int NoOfSetBitsinMSB2raisextoN = n - (1<<x) + 1;
+        int rest = n - (1<<x);
+        int ans = NoOfSetBitsUpto2raisex + NoOfSetBitsinMSB2raisextoN + countSetBits(rest);
+        return ans;
+       
+        
+        
+    }
+    
+    public static int largestPowerOf2inRange(int n){
+        int x = 0;
+        
+        while((1<<x) <= n){   // 2^x <= n
+            x++;
+        }
+        
+        return x-1;
+    }
+}
