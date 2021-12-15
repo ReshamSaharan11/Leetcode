@@ -60,3 +60,8 @@ class MaximumXOR{
         System.out.println(findMaximum(nums));
     }
 }
+
+Complexity Analysis
+The time complexity of the above program is O(N*log(M)), where N is the size of the array and M is the maximum element of the array.
+
+The space complexity is O(N).
