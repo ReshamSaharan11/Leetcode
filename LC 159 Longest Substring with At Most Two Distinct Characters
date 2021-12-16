@@ -1,0 +1,30 @@
+public int lengthOfLongestSubstringTwoDistinct(String s) {
+       int n = s.length();
+       int si  = 0 , ei = 0;
+       int count = 0;
+       int maxLen = 0;
+
+       int[] freq = new int[128];
+
+       while(ei < n){
+         if(freq[s.charAt(ei)] == 0) count++;
+          freq[s.charAt(ei)]++;
+          ei++;
+
+           while(count > 2){
+             if(freq[s.charAt(si)] == 1) count--;
+
+             freq[s.charAt(si)]--;
+             si++;
+           }
+
+           maxLen = Math.max(maxLen,ei - si);
+       }
+
+       return maxLen;
+
+
+
+
+
+    }
