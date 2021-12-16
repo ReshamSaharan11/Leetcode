@@ -1,0 +1,60 @@
+class Solution {
+    public int longestSubstring(String s, int k) {
+        
+       // To store the required maximum length
+    int maxLen = 0;
+    int n  =s.length();    
+ 
+    int freq[] = new int[26];
+ 
+    // Starting index of the sub-string
+    for (int i = 0; i < n; i++)
+    {
+        setZero(freq);
+ 
+        // Ending index of the sub-string
+        for (int j = i; j < n; j++)
+        {
+            freq[s.charAt(j) - 'a']++;
+ 
+            // If the frequency of every character
+            // of the current sub-string is at least k
+            if (atLeastK(freq, k))
+            {
+ 
+                // Update the maximum possible length
+                maxLen = Math.max(maxLen, j - i + 1);
+            }
+        }
+    }
+ 
+    return maxLen;
+        
+    }
+    
+    
+    public void setZero(int freq[])
+  {
+    for (int i = 0; i < 26; i++)
+        freq[i] = 0;
+  }
+    
+    
+    public boolean atLeastK(int freq[], int k)
+{
+    for (int i = 0; i < 26; i++)
+    {
+ 
+        // If the character is present and
+        // its frequency is less than k
+        if (freq[i] != 0 && freq[i] < k)
+            return false;
+    }
+ 
+    return true;
+}
+    
+    
+}
+
+Time - O(N^2)
