@@ -1,0 +1,31 @@
+// Same as Min Window Substring Leetcode 76 .
+// Idea is to find the min length window or substring that is exactly equal to the length of pattern string.
+// If the length of min window found is exactly equal to pattern string, we have found permutation, return true else return false
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int n = s2.length();
+        int si = 0 , ei = 0 , count = s1.length();
+        int len = (int)1e9;
+        
+        int[] freq = new int[26];
+        for(int i=0;i<s1.length();i++) freq[s1.charAt(i) - 'a']++;
+        
+        while(ei < n){
+            if(freq[s2.charAt(ei++) - 'a']-- > 0) count--;
+            
+            while(count == 0){
+                if(ei - si < len) len = ei - si;
+                
+                if(len == s1.length()) return true;
+            
+                if(freq[s2.charAt(si++) - 'a']++  == 0) count++;
+            }
+        }
+        
+        
+        
+        return false;
+        
+    }
+}
