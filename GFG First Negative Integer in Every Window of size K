@@ -1,0 +1,26 @@
+class Compute {
+    
+    public long[] printFirstNegativeInteger(long arr[], int n, int k)
+    {
+        long [] ans = new long [n - k + 1];
+        LinkedList<Integer> dequeue = new LinkedList<>();
+        int idx = 0;
+        
+        for(int i=0;i<n;i++){
+            while(dequeue.size() != 0 && dequeue.getFirst() <= i - k){
+                dequeue.removeFirst();
+            }
+            
+            if(arr[i] < 0) dequeue.addLast(i);  // Only negative elements are stored to minimize queue's size
+            
+            if(i >= k - 1){
+                ans[idx++] = (dequeue.size() == 0) ? 0 : arr[dequeue.getFirst()]; 
+            }
+        }
+        
+        return ans;
+    }
+}
+
+Time - O(n)
+Space - O(k)
